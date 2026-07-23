@@ -92,6 +92,29 @@ employee-leave-management/
 
 ---
 
+## Quick Start
+
+```bash
+chmod +x start.sh
+./start.sh
+```
+
+For a clean demo database:
+
+```bash
+./start.sh --seed
+```
+
+### Notes on Startup
+
+- Local MongoDB is reused when already running.
+- If a local MongoDB URL is configured and MongoDB is unavailable, Docker is used when available.
+- Remote MongoDB URLs are used directly.
+- Docker is optional and not a required part of the application architecture.
+- Pressing `Ctrl+C` stops frontend and backend services while leaving the database running.
+
+---
+
 ## Prerequisites
 
 - **Node.js**: v18.x or later
