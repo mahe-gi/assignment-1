@@ -95,7 +95,7 @@ employee-leave-management/
 ## Prerequisites
 
 - **Node.js**: v18.x or later
-- **MongoDB**: Running locally at `mongodb://127.0.0.1:27017`
+- **MongoDB**: MongoDB must be available at `localhost:27017`. It may run as a local MongoDB service or through an optional Docker container.
 
 ---
 
