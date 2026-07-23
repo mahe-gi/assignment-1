@@ -117,7 +117,8 @@ class LeaveService {
 
     // Search filter (Manager only)
     if (user.role === 'Manager' && search && search.trim() !== '') {
-      const searchRegex = new RegExp(search.trim(), 'i');
+      const escaped = search.trim().replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+      const searchRegex = new RegExp(escaped, 'i');
       const matchingUsers = await User.find({
         role: 'Employee',
         $or: [{ name: searchRegex }, { email: searchRegex }]
@@ -327,7 +328,8 @@ class LeaveService {
       }
 
       if (search && search.trim() !== '') {
-        const searchRegex = new RegExp(search.trim(), 'i');
+        const escaped = search.trim().replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+        const searchRegex = new RegExp(escaped, 'i');
         const matchingUsers = await User.find({
           role: 'Employee',
           $or: [{ name: searchRegex }, { email: searchRegex }]

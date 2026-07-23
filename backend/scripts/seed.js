@@ -3,6 +3,7 @@ const bcrypt = require('bcryptjs');
 require('dotenv').config();
 
 const User = require('../src/models/User');
+const LeaveRequest = require('../src/models/LeaveRequest');
 
 const seedUsers = [
   {
@@ -36,6 +37,10 @@ const seedDatabase = async () => {
     const mongoUri = process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/employee_leave_management';
     await mongoose.connect(mongoUri);
     console.log('Connected to MongoDB for seeding...');
+
+    // Clear existing leave requests for a clean state
+    await LeaveRequest.deleteMany({});
+    console.log('Cleared existing leave requests.');
 
     for (const userData of seedUsers) {
       const salt = await bcrypt.genSalt(10);

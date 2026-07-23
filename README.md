@@ -104,17 +104,17 @@ employee-leave-management/
 ### Backend (`backend/.env`)
 
 ```env
-PORT=5000
+PORT=3001
 MONGODB_URI=mongodb://127.0.0.1:27017/employee_leave_management
 JWT_SECRET=super_secret_jwt_key_employee_leave_management_2026
 JWT_EXPIRES_IN=1d
-CLIENT_URL=http://localhost:3000
+CLIENT_URL=http://localhost:3010
 ```
 
 ### Frontend (`frontend/.env.local`)
 
 ```env
-NEXT_PUBLIC_API_URL=http://localhost:5000/api
+NEXT_PUBLIC_API_URL=http://localhost:3001/api
 ```
 
 ---
@@ -147,10 +147,10 @@ The seed script initializes three demo user accounts with hashed passwords:
 cd frontend
 npm install
 cp .env.local.example .env.local
-npm run dev
+npm run dev -- -p 3010
 ```
 
-Open `http://localhost:3000` in your browser.
+Open `http://localhost:3010` in your browser.
 
 ---
 
