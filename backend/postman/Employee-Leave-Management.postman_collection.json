@@ -1,0 +1,201 @@
+{
+  "info": {
+    "_postman_id": "e89c1234-5678-4321-90ab-cdef12345678",
+    "name": "Employee Leave Management System",
+    "description": "API Postman Collection for Employee Leave Management System",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:5000/api",
+      "type": "string"
+    },
+    {
+      "key": "token",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "leaveId",
+      "value": "",
+      "type": "string"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{token}}",
+        "type": "string"
+      }
+    ]
+  },
+  "item": [
+    {
+      "name": "Auth",
+      "item": [
+        {
+          "name": "Login (Employee)",
+          "request": {
+            "auth": { "type": "noauth" },
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"employee@example.com\",\n  \"password\": \"Employee@123\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/auth/login",
+              "host": ["{{baseUrl}}"],
+              "path": ["auth", "login"]
+            }
+          }
+        },
+        {
+          "name": "Login (Manager)",
+          "request": {
+            "auth": { "type": "noauth" },
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"manager@example.com\",\n  \"password\": \"Manager@123\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/auth/login",
+              "host": ["{{baseUrl}}"],
+              "path": ["auth", "login"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Employees",
+      "item": [
+        {
+          "name": "Get Employees (Manager Only)",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/employees",
+              "host": ["{{baseUrl}}"],
+              "path": ["employees"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Leaves",
+      "item": [
+        {
+          "name": "Apply Leave (Employee Only)",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"startDate\": \"2026-08-10\",\n  \"endDate\": \"2026-08-12\",\n  \"reason\": \"Vacation trip\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/leaves",
+              "host": ["{{baseUrl}}"],
+              "path": ["leaves"]
+            }
+          }
+        },
+        {
+          "name": "List Leaves (Paginated)",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/leaves?page=1&limit=10&sortOrder=desc",
+              "host": ["{{baseUrl}}"],
+              "path": ["leaves"],
+              "query": [
+                { "key": "page", "value": "1" },
+                { "key": "limit", "value": "10" },
+                { "key": "sortOrder", "value": "desc" },
+                { "key": "status", "value": "Pending", "disabled": true },
+                { "key": "employeeId", "value": "", "disabled": true },
+                { "key": "search", "value": "", "disabled": true }
+              ]
+            }
+          }
+        },
+        {
+          "name": "List Active Employee Leaves (activeOnly=true)",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/leaves?activeOnly=true",
+              "host": ["{{baseUrl}}"],
+              "path": ["leaves"],
+              "query": [
+                { "key": "activeOnly", "value": "true" }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Approve Leave (Manager Only)",
+          "request": {
+            "method": "PATCH",
+            "url": {
+              "raw": "{{baseUrl}}/leaves/{{leaveId}}/approve",
+              "host": ["{{baseUrl}}"],
+              "path": ["leaves", "{{leaveId}}", "approve"]
+            }
+          }
+        },
+        {
+          "name": "Reject Leave (Manager Only)",
+          "request": {
+            "method": "PATCH",
+            "url": {
+              "raw": "{{baseUrl}}/leaves/{{leaveId}}/reject",
+              "host": ["{{baseUrl}}"],
+              "path": ["leaves", "{{leaveId}}", "reject"]
+            }
+          }
+        },
+        {
+          "name": "Cancel Leave (Employee Only)",
+          "request": {
+            "method": "PATCH",
+            "url": {
+              "raw": "{{baseUrl}}/leaves/{{leaveId}}/cancel",
+              "host": ["{{baseUrl}}"],
+              "path": ["leaves", "{{leaveId}}", "cancel"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Dashboard",
+      "item": [
+        {
+          "name": "Get Dashboard Data",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/dashboard",
+              "host": ["{{baseUrl}}"],
+              "path": ["dashboard"]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
